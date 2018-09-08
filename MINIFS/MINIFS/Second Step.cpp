@@ -11,7 +11,6 @@ void DoSecondStep(char *SName)
 	FunctionGuide(SName);
 	while (1)
 	{
-
 		switch (ReceiveSIns(SName)) {
 			//-1 close program
 		case -1: return; break;

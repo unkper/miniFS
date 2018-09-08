@@ -30,9 +30,15 @@
     <ClCompile Include="Second Step.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

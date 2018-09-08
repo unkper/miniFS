@@ -18,6 +18,7 @@ int main()
 			default: break;
 		}
 	}
+	getchar();
 	return 0;
 }
 
