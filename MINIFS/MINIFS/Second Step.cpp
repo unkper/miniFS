@@ -5,6 +5,15 @@ int ReceiveSIns(char *);
 char Filename[9];
 char FileExtname[4];
 
+void ScanfFileName(char * Filename, char* FileExtname)
+{
+	char m_string[15];
+	memset(m_string, 0, sizeof(m_string));
+	scanf("%s", m_string);
+	Filename = strtok(m_string, ".");
+	FileExtname = strtok(NULL, ".");
+}
+
 void DoSecondStep(char *SName)
 {
 	system("cls");
@@ -41,10 +50,9 @@ int ReceiveSIns(char *Spacename)
 	//新建文件
 	else if (strcmp(instruction, "new") == 0)
 	{
-		memset(Filename, 0, sizeof(Filename));
-		memset(FileExtname, 0, sizeof(FileExtname));
-		scanf("%s.%s", Filename, FileExtname);
-		//CreateFile(Filename, FileExtname);
+		ScanfFileName(Filename, FileExtname);
+		printf("%s    %s", Filename, FileExtname);
+		m_CreateFile(Filename, FileExtname);
 		return 3;
 	}
 
@@ -135,7 +143,7 @@ int ReceiveSIns(char *Spacename)
 	//关闭空间
 	else if (strcmp(instruction, "close") == 0)
 	{
-		//CloseSpace();
+		CloseSpace();
 		return 4;
 	}
 

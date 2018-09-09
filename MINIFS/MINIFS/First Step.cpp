@@ -1,5 +1,5 @@
 #include"define.h"
-
+#include"GuideManager.h"
 
 FILE *CreateSpace(char *SName)
 {
@@ -21,9 +21,10 @@ FILE *CreateSpace(char *SName)
 		printf("File open failed.");
 		exit(1);
 	}
-
 	fseek(fp, 1024*1024*1024L, SEEK_SET);
-	fprintf(fp,"end\n");
+	
+	//InitGuideBlock(fp);
+	fflush(fp);
 	//3s
 	printf("\t已创建名为%s的Mini-FS空间！3秒后进入空间.  \r", SName);
 	Sleep(333);
@@ -57,6 +58,7 @@ FILE *MountSpace(char *SName)
 	}
 	else
 	{
+		ReadGuideBlock(fp);
 		printf("\t已加载Mini-FS空间“%s”！3秒后进入空间.  \r", SName);
 		Sleep(333);
 		printf("\t已加载Mini-FS空间“%s”！3秒后进入空间.. \r", SName);
@@ -79,6 +81,65 @@ FILE *MountSpace(char *SName)
 		Sleep(333);
 	}
 	return fp;
+}
+
+void InitGuideBlock(FILE* header)
+{
+	GuideManager& manager = GuideManager::GetInstance();
+	manager.Header = header;
+	byte bytes[8 * 1024];
+	memset(bytes, 0, sizeof(bytes));
+	manager.contentMap = new Bitmap(bytes, 8 * 1024);
+
+	manager.fileCount = 0;
+
+}
+
+//读入引导块
+void ReadGuideBlock(FILE* header)
+{
+	GuideManager& manager = GuideManager::GetInstance();
+	manager.Header = header;
+	//首先读入内容bitmap
+	byte bytes[8 * 1024];
+	memset(bytes, 0, sizeof(bytes));
+	fread(bytes, sizeof(byte), CONTENTBLOCKCOUNT/8, header);
+	manager.contentMap = new Bitmap(bytes, 8 * 1024);
+
+	int fileCount;
+	FILE* h = header;
+	fseek(h, 8 * 1024, SEEK_SET);
+	fread(&fileCount, sizeof(int), 1, h);
+	manager.fileCount = fileCount;
+
+	fseek(header, BLOCK_SIZE, SEEK_SET);
+	UFD* ufds=(UFD*)malloc(sizeof(UFD)*2500);
+	fread(ufds, sizeof(UFD), fileCount, header);
+	for (int i = 0; i < fileCount; i++)
+	{
+		manager.files->push_front(ufds[i]);
+	}
+	return;
+}
+
+void WriteGuideBlock(FILE* header)
+{
+	GuideManager& manager = GuideManager::GetInstance();
+    Bitmap& map = *manager.contentMap;
+	FILE* p = header;
+	fwrite(map.Deserialize(), sizeof(byte), map.GetByteLength(), p);
+
+	fwrite(&manager.fileCount, sizeof(int), 1, p);
+
+	p = header;
+	fseek(p, BLOCK_SIZE, SEEK_CUR);
+	list<UFD>::iterator iter = manager.files->begin();
+	while (iter != manager.files->end())
+	{
+		fwrite(iter._Ptr, sizeof(UFD), 1, p);
+		iter++;
+	}
+
 }
 
 void DeleteSpace(char *SName)

@@ -1,20 +1,15 @@
 #include "Bitmap.h"
 
 
-Bitmap::Bitmap(byte * content, int length)
+Bitmap::Bitmap(byte * content, int ByteLen)
 {
-	if (length % 8 != 0)
-	{
-		printf("bitmap's length must be div by 8");
-		exit(-1);
-	}
-	bitmapSlots = (byte*)malloc(sizeof(byte)*(length / 8));
+	bitmapSlots = (byte*)malloc(sizeof(byte)*ByteLen);
 	memset(bitmapSlots, 0, sizeof(bitmapSlots));
-	for (int i = 0; i < length / 8; i++)
+	for (int i = 0; i < ByteLen; i++)
 	{
 		bitmapSlots[i] |= content[i];
 	}
-	this->slotCount = length;
+	this->slotCount = ByteLen * 8;
 }
 
 Bitmap::~Bitmap()
@@ -41,7 +36,6 @@ bool Bitmap::GetBlockState(int keyValue)
 	else return false;
 }
 
-
 void Bitmap::SetBlockState(int keyValue, bool state)
 {
 	if (keyValue > this->slotCount)
@@ -61,6 +55,16 @@ void Bitmap::SetBlockState(int keyValue, bool state)
 		bitmapSlots[indexInArray] &= ~(1 << indexInChar);
 	}
 	return;
+}
+
+int Bitmap::GetByteLength()
+{
+	return this->slotCount/8;
+}
+
+byte * Bitmap::Deserialize()
+{
+	return this->bitmapSlots;
 }
 
 void Bitmap::printout()

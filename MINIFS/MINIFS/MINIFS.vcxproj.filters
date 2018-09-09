@@ -33,12 +33,24 @@
     <ClCompile Include="Bitmap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="GuideManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Structure.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\lenovo\Documents\Tencent Files\759868838\FileRecv\global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GuideManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

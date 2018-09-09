@@ -7,6 +7,8 @@ public:
 	~Bitmap();
 	bool GetBlockState(int keyValue);
 	void SetBlockState(int keyValue, bool state);
+	int GetByteLength();
+	byte* Deserialize();
 	void printout();
 
 private:

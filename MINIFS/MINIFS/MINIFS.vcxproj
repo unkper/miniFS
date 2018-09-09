@@ -83,8 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -145,13 +144,17 @@
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="First Step.cpp" />
+    <ClCompile Include="GuideManager.cpp" />
     <ClCompile Include="MINI-FS main.cpp" />
     <ClCompile Include="Second Step.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="C:\Users\lenovo\Documents\Tencent Files\759868838\FileRecv\global.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="GuideManager.h" />
+    <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

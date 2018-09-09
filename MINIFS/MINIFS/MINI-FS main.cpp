@@ -3,6 +3,7 @@
 char instruction[100];
 char Spacename[10];
 
+
 int ReceiveIns();
 FILE *SPACE;
 
